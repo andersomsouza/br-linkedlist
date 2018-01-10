@@ -14,7 +14,7 @@ for (var i = 25; i > 0; i--) {
 }
 
 // Removendo itens
-lista.slice();
+lista.shift();
 lista.pop();
 
 // Getters 
@@ -35,6 +35,7 @@ console.log("26 está na lista? ="+ (26 in lista));
 
 // forEach
 lista.forEach(v => console.log(v))
+lista.forEachReverse(v => console.log(v))
 
 ```
 
@@ -52,7 +53,7 @@ Em HTML :
 ## API Reference
 
 Métodos:
- 
+
     - push(valor)
     - pop()
     - shift()

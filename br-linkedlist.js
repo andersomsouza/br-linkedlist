@@ -1,5 +1,5 @@
 var LinkedList = (function() {
-  Nodo = function() {
+  var Nodo = function() {
     this.proximo = null;
     this.anterior = null;
     this.valor = null;
@@ -23,7 +23,7 @@ var LinkedList = (function() {
           return target.has(prop);
         },
         set: function(target, property, value, receiver) {
-          target.set(property, value);
+         return target.set(property, value);
         },
       });
     }
@@ -41,7 +41,7 @@ var LinkedList = (function() {
       nodo.valor = valor;
       if (this._primeiro) {
         nodo.anterior = this._ultimo;
-        this._ultimo.proximo = nodo;
+        this._ultimo.proximo = nodo;      
         this._ultimo = nodo;
       } else {
         this._primeiro = nodo;
@@ -51,16 +51,18 @@ var LinkedList = (function() {
     }
 
     shift() {
-      let nodo = this._primeiro;
-      this._primeiro = nodo.proximo;
-
+      console.log(this._primeiro);
+      
+      this._primeiro = this._primeiro.proximo;
+      this._primeiro.anterior = null;
+      console.log(this._primeiro);
+      
       this._length--;
     }
 
     pop() {
-      let nodo = this._ultimo;
-      this._ultimo = nodo.anterior;
-
+      this._ultimo = this._ultimo.anterior;
+      this._ultimo.proximo = null;
       this._length--;
     }
 
@@ -109,7 +111,17 @@ var LinkedList = (function() {
         nodoAtual = nodoAtual.proximo;
       }
     }
-
+    
+    forEachReverse(func) {
+      let nodoAtual = this._ultimo;
+      for (var i = 0; nodoAtual; i++) {
+        if (func(nodoAtual.valor, i) === true) {
+          break;
+        }
+        nodoAtual = nodoAtual.anterior;
+      }
+    }
+    
     _getNodo(index) {
       let nodoAtual = this._primeiro;
       for (let i = 0; i < index; i++) {
